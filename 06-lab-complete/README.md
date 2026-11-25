@@ -1,7 +1,19 @@
 # Part 6 — Final Project: Production-ready AI Agent
 
 Bạn tự xây một AI agent đủ chuẩn production từ **bản khung** trong thư mục này, kết hợp mọi thứ đã học ở Part 1–5.
-Mọi file đều đã có sẵn, phần việc của bạn nằm ở các chỗ ghi `TODO`. Bản khung chạy được nhưng **chưa đạt tiêu chí nào**.
+Code bài làm đã triển khai trong `app/`, Dockerfile và Compose. Giữ nguyên script chấm. Bằng chứng chạy được lưu ở `../evidence/`; xem `../MISSION_ANSWERS.md` để biết kết quả và giới hạn kiểm chứng.
+
+### Chạy bài làm
+
+Từ thư mục này, cài `pip install -r requirements.txt`, tạo `.env` từ `.env.example`, đặt một `AGENT_API_KEY` riêng. Chạy `docker compose -p k5-day14-final up -d --build` để có agent và Redis. Khi chạy Python ngoài Docker, đặt `REDIS_URL` trỏ tới Redis có thể truy cập từ máy.
+
+`GET /health` không phụ thuộc Redis. `GET /ready` trả 503 khi Redis lỗi. `POST /ask` nhận JSON `question` và header `X-API-Key`. Thiếu/sai key trả 401, quá tốc độ trả 429, hết ngân sách trả 402; Redis không truy cập được thì các thao tác có state trả 503. Key rỗng không cấp quyền truy cập.
+
+Rate limit dùng Lua sliding window nguyên tử trong Redis. Budget là tổng toàn dịch vụ theo ngày/tháng UTC; token/cost của mock là **ước tính**, có đánh dấu trong response. Kiểm tra ngân sách trước gọi LLM và ghi nhận sau gọi nên các request đồng thời đang xử lý có thể làm vượt ngân sách một lượng nhỏ; đây chưa phải cơ chế giữ chỗ ngân sách cứng. Compose dùng Redis AOF và named volume để giữ state qua restart.
+
+Để chấm đủ SIGTERM, dùng Python trên Linux/Ubuntu WSL với Docker hoạt động, chạy `python check_production_ready.py`. Windows chỉ kiểm tra được một phần. Uvicorn xử lý signal và chờ request trước khi lifespan đóng Redis; Docker CMD dùng `exec` để Uvicorn làm PID 1.
+
+Railway: đặt service root là `06-lab-complete/`. Render Blueprint: đọc `render.yaml` trong thư mục này, `rootDir` tính từ gốc repo. Cả hai đều cần Redis cloud và biến `REDIS_URL` do người triển khai cung cấp; cấu hình sẵn không có nghĩa đã deploy public.
 
 Bài chỉ được tính hoàn thành khi script chấm báo **`PASS 12/12`**:
 

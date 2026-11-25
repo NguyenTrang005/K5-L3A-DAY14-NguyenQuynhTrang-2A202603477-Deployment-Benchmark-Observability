@@ -1,0 +1,8 @@
+{
+  "health": 200,
+  "ready": 200,
+  "request_during_sigterm": 200,
+  "exit_code": -15,
+  "environment": "Linux container",
+  "signal_delay_seconds": 0.05
+}

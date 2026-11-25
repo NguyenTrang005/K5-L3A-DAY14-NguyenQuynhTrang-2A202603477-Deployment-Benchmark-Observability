@@ -1,0 +1,14 @@
+Part 4 verification using FastAPI TestClient (not a deployed service)
+
+develop:
+missing key: HTTP 401
+wrong key (original Part 4 example): HTTP 403
+valid key: HTTP 200
+
+
+production:
+JWT missing: HTTP 401
+JWT login: HTTP 200 (token redacted)
+20 requests: [200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 429, 429, 429, 429, 429, 429, 429, 429, 429, 429]
+Student admin endpoint: HTTP 403
+Daily cost guard (budget=0): HTTP 402

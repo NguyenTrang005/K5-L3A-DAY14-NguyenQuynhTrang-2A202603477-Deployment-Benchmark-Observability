@@ -24,3 +24,5 @@ func hello(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Xin chao, AI in Action\n")
 	fmt.Fprintf(w, "Version: 1.0.0\n")
 }
+// Test Docker layer cache
+// Part 2: compare dependency cache

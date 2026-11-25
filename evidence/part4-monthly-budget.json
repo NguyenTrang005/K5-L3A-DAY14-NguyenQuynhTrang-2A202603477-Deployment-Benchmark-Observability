@@ -1,0 +1,8 @@
+{
+  "concurrent_requests": 20,
+  "usd_per_request": 1,
+  "accepted": 10,
+  "rejected": 10,
+  "extra_reservation": false,
+  "separate_user_has_own_budget": true
+}
