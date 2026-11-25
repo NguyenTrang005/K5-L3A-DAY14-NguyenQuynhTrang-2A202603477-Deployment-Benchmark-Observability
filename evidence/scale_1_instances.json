@@ -1,0 +1,11 @@
+{
+  "replicas": 1,
+  "container_ids": [
+    "7abaaae0d0dcef201aa4b6ba7410dff013ef0891fe7ed3e386f3832453a79e50"
+  ],
+  "mock_error_rate": 0.01,
+  "mock_slow_rate": 0.03,
+  "model": "mock-llm-small",
+  "agent_version": "v2",
+  "seconds": 120
+}
