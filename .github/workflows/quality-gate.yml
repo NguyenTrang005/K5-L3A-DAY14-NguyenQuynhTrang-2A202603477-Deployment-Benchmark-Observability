@@ -1,0 +1,38 @@
+name: Agent quality gate
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 06-lab-complete/benchmark-observability/develop
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Start v2 (deterministic quality check, no injected upstream errors)
+        run: |
+          AGENT_VERSION=v2 PORT=8002 MOCK_ERROR_RATE=0 MOCK_SLOW_RATE=0 python app.py > /tmp/agent.log 2>&1 &
+          echo "AGENT_PID=$!" >> "$GITHUB_ENV"
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8002/health; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/agent.log
+          exit 1
+      - name: Reject low accuracy and regressions
+        run: >-
+          python eval/run_eval.py --url http://localhost:8002 --min-accuracy 1.0
+          --baseline ../../../reports/eval_v2_fixed.json --out reports/ci_eval.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eval-report
+          path: 06-lab-complete/benchmark-observability/develop/reports/ci_eval.json
+      - name: Stop agent
+        if: always()
+        run: kill "$AGENT_PID" || true

@@ -1,0 +1,17 @@
+
+════════════════════════════════════════════════════════
+  LOAD TEST REPORT — http://localhost:8002
+════════════════════════════════════════════════════════
+  Requests     : 300  (concurrency=100)
+  Duration     : 6.9 s
+  Throughput   : 43.47 req/s
+  Error rate   : 3.00%   {'200': 291, '503': 9}
+  Total cost   : $0.009791
+  Latency (ms) : min=184.2  avg=1659.7  max=6109.0
+                 p50=752.1  p90=4049.3  p95=4736.8  p99=5115.9
+────────────────────────────────────────────────────────
+  SLO p95 ≤ 500ms        : ❌ FAIL
+  SLO error rate ≤ 2.0%  : ❌ FAIL
+════════════════════════════════════════════════════════
+
+💾 Đã lưu report: C:\Users\DELL PRECISION 7550\Downloads\Tai_lieu_hoc_tap\Ki_1_2026_2027\VinAI\GĐ_1\Lab\Lab_14\K5-L3A-DAY14-NguyenQuynhTrang-2A202603477-Deployment-Benchmark-Observability\reports\load_v2_c100.json

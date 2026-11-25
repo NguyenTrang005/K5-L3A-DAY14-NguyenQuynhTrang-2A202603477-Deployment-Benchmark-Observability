@@ -171,6 +171,36 @@ Lưu ý từ log thực tế: dòng event request có JSON lồng trong chuỗi 
 - [x] Vẽ sơ đồ stack Compose và kiểm tra `/health`, `/ask` qua Nginx.
 - [x] Xác nhận agent healthy và thực hành xem log / exec vào container.
 
+## Part 3: Cloud Deployment
+
+### Exercise 3.1/3.2: Deploy agent Part 6
+
+Đã triển khai agent trong `06-lab-complete/` lên **Render**, với Redis-compatible Key Value và public URL **https://day14-agent-8reb.onrender.com**. Ban đầu Railway báo vượt giới hạn tạo tài nguyên gói Free và yêu cầu nâng cấp; người học chuyển sang Render, không triển khai thêm trên Railway.
+
+Người học đã gửi ảnh public `/health` trả `status: ok`, `environment: production`; `/ready` trả `ready: true`. Swagger Server response xác nhận `POST /ask` thiếu key → **401**, key hợp lệ → **200** với câu hỏi Hello và câu trả lời mock. Chi tiết, response và lệnh tái kiểm tra ở [DEPLOYMENT.md](DEPLOYMENT.md). Ảnh trong hội thoại cần được lưu thêm vào `screenshots/` trước khi nộp.
+
+#### So sánh cấu hình Railway và Render trong repo
+
+| Nội dung | `railway.toml` | `render.yaml` |
+|---|---|---|
+| Định dạng | TOML, cấu hình build/deploy cho service | YAML Blueprint, khai báo danh sách services và environment |
+| Docker build | `builder = "DOCKERFILE"`, `dockerfilePath = "Dockerfile"` | `type: web`, `runtime: docker`, `dockerfilePath: ./Dockerfile` |
+| Thư mục nguồn | Thiết lập service root `06-lab-complete/` trên Railway | File có `rootDir: 06-lab-complete` tính từ gốc repo |
+| Health check | `healthcheckPath = "/health"`, timeout 100 | `healthCheckPath: /health` |
+| Secret | Đặt bằng biến môi trường của service, không có giá trị key trong TOML | `AGENT_API_KEY` có `generateValue: true`; `REDIS_URL` có `sync: false`, cần nhập riêng |
+| Redis | Cần tạo thêm service và cấu hình URL | Cấu hình hiện tại chưa khai báo Key Value; người học tạo thủ công và đặt Internal URL |
+| Restart | File đặt `restartPolicyType = "ON_FAILURE"` | File không khai báo restart policy tương ứng |
+
+Khác biệt do schema và cách quản lý service của mỗi nền tảng. Cả hai dùng cùng Dockerfile ứng dụng và biến môi trường; không đưa Compose local lên cloud như một service duy nhất. Việc deploy bằng giao diện Render không đồng nghĩa Blueprint đã được tự động áp dụng; bảng trên so sánh các file trong repo.
+
+### Exercise 3.3: Pipeline Cloud Run (đọc cấu hình, không deploy)
+
+1. `cloudbuild.yaml` định nghĩa bước cài dependencies và chạy `pytest tests/`; trigger theo nhánh cần được cấu hình riêng, không được tạo chỉ bằng comment trong YAML.
+2. Bước Docker build tạo image có tag commit SHA và `latest`, rồi push lên registry `gcr.io/$PROJECT_ID/ai-agent` theo thứ tự `waitFor`.
+3. Bước deploy chạy `gcloud run deploy` với image theo SHA, region `asia-southeast1`, giới hạn 1–10 instance, CPU/RAM/timeout và secret từ Secret Manager.
+4. `service.yaml` là cấu hình declarative triển khai qua `gcloud run services replace`: image, tài nguyên, concurrency, env/secrets và probes; pipeline mẫu hiện dùng lệnh deploy, không tự đọc file này.
+5. Đây là phân tích code mẫu, chưa chạy GCP. Nếu dùng thật cần làm bước test fail-fast (`bash -e` hoặc `set -e`) vì lệnh `echo` cuối script hiện có thể che exit code lỗi của pytest.
+
 ## Part 4: API Security
 
 ### Exercise 4.1: API Key authentication
@@ -259,7 +289,7 @@ Code nằm đúng trong `06-lab-complete/`. Không sửa `check_production_ready
 - `cost_guard.py`: ghi tổng cost theo ngày và tháng UTC trong Redis, check trước gọi LLM, trả 402 khi đã hết budget. Đây là budget tổng service, không phải từng user. Token của mock được ước tính theo độ dài, response đánh dấu `estimated: true`. Request đang xử lý đồng thời có thể vượt budget vì chưa có giữ chỗ trước gọi LLM.
 - `main.py`: `/health`, `/ready`, `/ask`, validation, JSON logger dùng serialization đúng, Redis lỗi trả 503 và lỗi ngoài dự kiến trả thông báo chung; Uvicorn quản lý signal và lifespan đóng Redis sau khi drain request.
 - Docker: multi-stage slim, user non-root, HEALTHCHECK, lắng nghe PORT, exec Uvicorn PID 1; Compose có agent + Redis AOF/named volume.
-- Có Railway/Render config; Redis cloud và URL public vẫn thuộc bước triển khai Part 3, chưa được tạo trong lần thực hiện này.
+- Có Railway/Render config. Sau lần hoàn thiện code, người học đã deploy lên Render cùng Redis cloud và kiểm tra public URL ở Part 3; xem `DEPLOYMENT.md`.
 
 ### Bằng chứng kiểm tra
 
@@ -287,9 +317,11 @@ Result: 12/12 tiêu chí đạt · 43/43 checks passed
 🎉 PASS 12/12 — PRODUCTION READY! Deploy nào!
 ```
 
-`Public URL ready` trong script xác nhận cấu hình deploy sẵn sàng; chưa phải bằng chứng có URL public hoạt động. Part 3 và nhóm điểm triển khai cloud của Part 6 còn cần URL, Redis cloud, `DEPLOYMENT.md` và ảnh triển khai.
+`Public URL ready` trong script chỉ xác nhận cấu hình deploy sẵn sàng. Public URL Render đã được người học kiểm chứng riêng ở Part 3 (health/readiness, thiếu key 401, key đúng 200); có `DEPLOYMENT.md`. Còn cần lưu ảnh triển khai vào repo để đủ hồ sơ nộp.
 
 ## AI log
+
+Part 3 bổ sung: ChatGPT/Codex hướng dẫn chuyển từ Railway sang Render, tạo Key Value, cấu hình web service và kiểm tra Swagger. Người học tự thực hiện deploy và gửi ảnh health/readiness/401/200; Codex đối chiếu ảnh, viết `DEPLOYMENT.md`, so sánh file cấu hình và mô tả Cloud Run từ source. Chưa thực hiện deploy GCP hay Railway; chưa xác nhận ảnh đã được lưu vào repo.
 
 | Phạm vi | Đã hỏi / hỗ trợ nhận được | Tự thực hiện và kiểm chứng |
 |---|---|---|
