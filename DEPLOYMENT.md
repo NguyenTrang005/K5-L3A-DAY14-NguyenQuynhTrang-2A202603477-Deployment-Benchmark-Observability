@@ -8,7 +8,7 @@ https://day14-agent-8reb.onrender.com
 
 - Render Web Service (Docker), agent Part 6 trong `06-lab-complete/`.
 - Redis-compatible Render Key Value; agent dùng Internal URL qua `REDIS_URL`.
-- Kết quả bên dưới được xác nhận từ ảnh người học gửi ngày 25/11/2026, múi giờ Việt Nam. Chưa ghi nhận lần kiểm tra độc lập từ công cụ trong đợt này.
+- Kết quả ban đầu được xác nhận từ ảnh người học gửi ngày 25/11/2026, múi giờ Việt Nam. Ngày 26/11/2026, Codex kiểm tra độc lập `/health` 200, `/ready` 200 và thiếu-key 401; lưu tại `evidence/public-deployment-smoke.json`. Không yêu cầu hoặc lưu key để tự chạy request có xác thực.
 - Railway không tạo được project vì tài khoản báo vượt giới hạn tài nguyên gói Free, nên chuyển sang Render.
 
 ## Kết quả kiểm tra public service
@@ -86,13 +86,14 @@ Không ghi key hoặc URL Redis có credential vào repo.
 - `RATE_LIMIT_PER_MINUTE`, `DAILY_BUDGET_USD`, `MONTHLY_BUDGET_USD`: cấu hình trên Render; hướng dẫn lab lần lượt là 10, 1, 10. Chưa có ảnh xác minh các giá trị thực tế đã đặt.
 - `PORT`: ứng dụng đọc từ môi trường của nền tảng; Dockerfile hỗ trợ biến này.
 
-## Screenshots cần lưu vào repo
+## Screenshots
 
-Ảnh đã gửi trong hội thoại chưa được xem là đã lưu vào filesystem của repo. Trước khi nộp cần bổ sung:
+Ảnh public được chụp lại từ trình duyệt thật; ảnh trong hội thoại không tự động trở thành file trong repo:
 
 - [ ] `screenshots/dashboard.png`: Render dashboard/service Live, không lộ secrets.
-- [ ] `screenshots/running.png`: public health/readiness hoạt động.
-- [ ] `screenshots/test.png`: kết quả API 401 và 200, không lộ key (có thể ghép hai kết quả hoặc thêm ảnh riêng).
+- [x] [screenshots/running.png](screenshots/running.png): public health hoạt động; readiness được kiểm tra trong JSON bằng chứng.
+- [x] [screenshots/test.png](screenshots/test.png): Swagger Server response 401 thật, không có key.
+- [ ] Khuyến nghị lưu thêm `screenshots/test-authorized.png`: ảnh Swagger 200 người học đã gửi; không đưa key vào ảnh.
 
 ## Giới hạn và vận hành
 

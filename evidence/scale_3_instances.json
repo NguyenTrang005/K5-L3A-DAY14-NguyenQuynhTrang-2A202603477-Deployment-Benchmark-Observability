@@ -1,0 +1,13 @@
+{
+  "replicas": 3,
+  "container_ids": [
+    "7abaaae0d0dcef201aa4b6ba7410dff013ef0891fe7ed3e386f3832453a79e50",
+    "130f64fd7602b5546e28876d4ef2bd31e685b21d5e6ee65dd6a63b17e2316491",
+    "234e237f79b35e4da9f0922257a26c146626d3ac4f9e8eff6e03f674f850a117"
+  ],
+  "mock_error_rate": 0.01,
+  "mock_slow_rate": 0.03,
+  "model": "mock-llm-small",
+  "agent_version": "v2",
+  "seconds": 120
+}

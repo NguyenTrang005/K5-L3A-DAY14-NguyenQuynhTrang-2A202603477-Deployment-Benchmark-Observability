@@ -1,0 +1,21 @@
+{
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok",
+      "environment": "production"
+    }
+  },
+  "ready": {
+    "status": 200,
+    "body": {
+      "ready": true
+    }
+  },
+  "ask_without_key": {
+    "status": 401,
+    "body": {
+      "detail": "Invalid or missing API key"
+    }
+  }
+}

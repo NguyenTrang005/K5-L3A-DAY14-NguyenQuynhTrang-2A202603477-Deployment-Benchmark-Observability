@@ -1,1 +1,324 @@
-{"result":{"resourceSpans":[{"resource":{"attributes":[{"key":"agent.version","value":{"stringValue":"v2"}},{"key":"deployment.environment.name","value":{"stringValue":"lab"}},{"key":"service.instance.id","value":{"stringValue":"7abaaae0d0dc"}},{"key":"service.name","value":{"stringValue":"observable-agent"}},{"key":"service.version","value":{"stringValue":"1.0.0"}},{"key":"telemetry.sdk.language","value":{"stringValue":"python"}},{"key":"telemetry.sdk.name","value":{"stringValue":"opentelemetry"}},{"key":"telemetry.sdk.version","value":{"stringValue":"1.45.2"}}]},"scopeSpans":[{"scope":{"name":"agent"},"spans":[{"traceId":"8a15f232ee5a79df21692eba40c55fb5","spanId":"58bc0a79a5aa9de7","parentSpanId":"c5ae8a0b9ad07198","flags":256,"name":"agent.retrieve_context","kind":1,"startTimeUnixNano":"1795625995336851416","endTimeUnixNano":"1795625995356129316","attributes":[{"key":"retrieval.documents","value":{"intValue":"1"}}],"status":{}},{"traceId":"8a15f232ee5a79df21692eba40c55fb5","spanId":"1a25f6ef4c48872d","parentSpanId":"c5ae8a0b9ad07198","flags":256,"name":"chat mock-llm-small","kind":1,"startTimeUnixNano":"1795625995356176016","endTimeUnixNano":"1795625997051463859","attributes":[{"key":"gen_ai.operation.name","value":{"stringValue":"chat"}},{"key":"gen_ai.provider.name","value":{"stringValue":"mock"}},{"key":"gen_ai.request.model","value":{"stringValue":"mock-llm-small"}},{"key":"gen_ai.usage.input_tokens","value":{"intValue":"95"}},{"key":"gen_ai.usage.output_tokens","value":{"intValue":"55"}},{"key":"llm.cost_usd","value":{"doubleValue":0.000047249999999999997}}],"status":{}},{"traceId":"8a15f232ee5a79df21692eba40c55fb5","spanId":"c5ae8a0b9ad07198","parentSpanId":"612d31ec409807dd","flags":256,"name":"agent.run","kind":1,"startTimeUnixNano":"1795625995336820216","endTimeUnixNano":"1795625997051505159","attributes":[{"key":"agent.question.length","value":{"intValue":"54"}},{"key":"agent.version","value":{"stringValue":"v2"}}],"status":{}}]},{"scope":{"name":"opentelemetry.instrumentation.fastapi","version":"0.66b2"},"spans":[{"traceId":"8a15f232ee5a79df21692eba40c55fb5","spanId":"612d31ec409807dd","flags":256,"name":"POST /ask","kind":2,"startTimeUnixNano":"1795625995316306215","endTimeUnixNano":"1795625997052250959","attributes":[{"key":"http.flavor","value":{"stringValue":"1.1"}},{"key":"http.host","value":{"stringValue":"172.20.0.7:8000"}},{"key":"http.method","value":{"stringValue":"POST"}},{"key":"http.route","value":{"stringValue":"/ask"}},{"key":"http.scheme","value":{"stringValue":"http"}},{"key":"http.server_name","value":{"stringValue":"nginx"}},{"key":"http.status_code","value":{"intValue":"200"}},{"key":"http.target","value":{"stringValue":"/ask"}},{"key":"http.url","value":{"stringValue":"http://nginx/ask"}},{"key":"http.user_agent","value":{"stringValue":"python-requests/2.34.2"}},{"key":"net.host.port","value":{"intValue":"8000"}},{"key":"net.peer.ip","value":{"stringValue":"172.20.0.6"}},{"key":"net.peer.port","value":{"intValue":"44822"}}],"status":{}}],"schemaUrl":"https://opentelemetry.io/schemas/1.11.0"}]}]}}
+{
+  "result": {
+    "resourceSpans": [
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "agent.version",
+              "value": {
+                "stringValue": "v2"
+              }
+            },
+            {
+              "key": "deployment.environment.name",
+              "value": {
+                "stringValue": "lab"
+              }
+            },
+            {
+              "key": "service.instance.id",
+              "value": {
+                "stringValue": "7abaaae0d0dc"
+              }
+            },
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "observable-agent"
+              }
+            },
+            {
+              "key": "service.version",
+              "value": {
+                "stringValue": "1.0.0"
+              }
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "value": {
+                "stringValue": "python"
+              }
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "value": {
+                "stringValue": "opentelemetry"
+              }
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "value": {
+                "stringValue": "1.45.2"
+              }
+            }
+          ]
+        },
+        "scopeSpans": [
+          {
+            "scope": {
+              "name": "agent"
+            },
+            "spans": [
+              {
+                "traceId": "0dee95878754785d40bfc27f54226b8e",
+                "spanId": "c2ab7a6a78cbd24f",
+                "parentSpanId": "b2e688c7ba0accd1",
+                "flags": 256,
+                "name": "agent.retrieve_context",
+                "kind": 1,
+                "startTimeUnixNano": "1795687274883020006",
+                "endTimeUnixNano": "1795687275080991734",
+                "attributes": [
+                  {
+                    "key": "retrieval.documents",
+                    "value": {
+                      "intValue": "1"
+                    }
+                  }
+                ],
+                "status": {}
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "resource": {
+          "attributes": [
+            {
+              "key": "agent.version",
+              "value": {
+                "stringValue": "v2"
+              }
+            },
+            {
+              "key": "deployment.environment.name",
+              "value": {
+                "stringValue": "lab"
+              }
+            },
+            {
+              "key": "service.instance.id",
+              "value": {
+                "stringValue": "7abaaae0d0dc"
+              }
+            },
+            {
+              "key": "service.name",
+              "value": {
+                "stringValue": "observable-agent"
+              }
+            },
+            {
+              "key": "service.version",
+              "value": {
+                "stringValue": "1.0.0"
+              }
+            },
+            {
+              "key": "telemetry.sdk.language",
+              "value": {
+                "stringValue": "python"
+              }
+            },
+            {
+              "key": "telemetry.sdk.name",
+              "value": {
+                "stringValue": "opentelemetry"
+              }
+            },
+            {
+              "key": "telemetry.sdk.version",
+              "value": {
+                "stringValue": "1.45.2"
+              }
+            }
+          ]
+        },
+        "scopeSpans": [
+          {
+            "scope": {
+              "name": "agent"
+            },
+            "spans": [
+              {
+                "traceId": "0dee95878754785d40bfc27f54226b8e",
+                "spanId": "4df4a34902feca54",
+                "parentSpanId": "b2e688c7ba0accd1",
+                "flags": 256,
+                "name": "chat mock-llm-small",
+                "kind": 1,
+                "startTimeUnixNano": "1795687275081269034",
+                "endTimeUnixNano": "1795687277114155501",
+                "attributes": [
+                  {
+                    "key": "gen_ai.operation.name",
+                    "value": {
+                      "stringValue": "chat"
+                    }
+                  },
+                  {
+                    "key": "gen_ai.provider.name",
+                    "value": {
+                      "stringValue": "mock"
+                    }
+                  },
+                  {
+                    "key": "gen_ai.request.model",
+                    "value": {
+                      "stringValue": "mock-llm-small"
+                    }
+                  },
+                  {
+                    "key": "gen_ai.usage.input_tokens",
+                    "value": {
+                      "intValue": "76"
+                    }
+                  },
+                  {
+                    "key": "gen_ai.usage.output_tokens",
+                    "value": {
+                      "intValue": "39"
+                    }
+                  },
+                  {
+                    "key": "llm.cost_usd",
+                    "value": {
+                      "doubleValue": 3.48e-05
+                    }
+                  }
+                ],
+                "status": {}
+              },
+              {
+                "traceId": "0dee95878754785d40bfc27f54226b8e",
+                "spanId": "b2e688c7ba0accd1",
+                "parentSpanId": "de8cdae182d7657f",
+                "flags": 256,
+                "name": "agent.run",
+                "kind": 1,
+                "startTimeUnixNano": "1795687274882879806",
+                "endTimeUnixNano": "1795687277114195701",
+                "attributes": [
+                  {
+                    "key": "agent.question.length",
+                    "value": {
+                      "intValue": "44"
+                    }
+                  },
+                  {
+                    "key": "agent.version",
+                    "value": {
+                      "stringValue": "v2"
+                    }
+                  }
+                ],
+                "status": {}
+              }
+            ]
+          },
+          {
+            "scope": {
+              "name": "opentelemetry.instrumentation.fastapi",
+              "version": "0.66b2"
+            },
+            "spans": [
+              {
+                "traceId": "0dee95878754785d40bfc27f54226b8e",
+                "spanId": "de8cdae182d7657f",
+                "flags": 256,
+                "name": "POST /ask",
+                "kind": 2,
+                "startTimeUnixNano": "1795687273782183747",
+                "endTimeUnixNano": "1795687277222493498",
+                "attributes": [
+                  {
+                    "key": "http.flavor",
+                    "value": {
+                      "stringValue": "1.1"
+                    }
+                  },
+                  {
+                    "key": "http.host",
+                    "value": {
+                      "stringValue": "172.20.0.2:8000"
+                    }
+                  },
+                  {
+                    "key": "http.method",
+                    "value": {
+                      "stringValue": "POST"
+                    }
+                  },
+                  {
+                    "key": "http.route",
+                    "value": {
+                      "stringValue": "/ask"
+                    }
+                  },
+                  {
+                    "key": "http.scheme",
+                    "value": {
+                      "stringValue": "http"
+                    }
+                  },
+                  {
+                    "key": "http.server_name",
+                    "value": {
+                      "stringValue": "nginx"
+                    }
+                  },
+                  {
+                    "key": "http.status_code",
+                    "value": {
+                      "intValue": "200"
+                    }
+                  },
+                  {
+                    "key": "http.target",
+                    "value": {
+                      "stringValue": "/ask"
+                    }
+                  },
+                  {
+                    "key": "http.url",
+                    "value": {
+                      "stringValue": "http://nginx/ask"
+                    }
+                  },
+                  {
+                    "key": "http.user_agent",
+                    "value": {
+                      "stringValue": "python-requests/2.34.2"
+                    }
+                  },
+                  {
+                    "key": "net.host.port",
+                    "value": {
+                      "intValue": "8000"
+                    }
+                  },
+                  {
+                    "key": "net.peer.ip",
+                    "value": {
+                      "stringValue": "172.20.0.6"
+                    }
+                  },
+                  {
+                    "key": "net.peer.port",
+                    "value": {
+                      "intValue": "40928"
+                    }
+                  }
+                ],
+                "status": {}
+              }
+            ],
+            "schemaUrl": "https://opentelemetry.io/schemas/1.11.0"
+          }
+        ]
+      }
+    ]
+  }
+}

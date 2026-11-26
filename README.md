@@ -1,5 +1,19 @@
 # Day 14 — Deployment, Benchmark & Observability
 
+## Bài làm và bằng chứng
+
+- [MISSION_ANSWERS.md](MISSION_ANSWERS.md): trả lời Part 1–5, giải thích triển khai Part 6, AI log.
+- [DEPLOYMENT.md](DEPLOYMENT.md): agent public trên Render, lệnh test và kết quả xác thực.
+- [BENCHMARK_REPORT.md](BENCHMARK_REPORT.md): số đo Part 7 từ JSON/CSV thật, eval, scaling, trace và alert.
+- [SUBMISSION_STATUS.md](SUBMISSION_STATUS.md): đối chiếu hồ sơ, ghi rõ ảnh nào còn cần người học bổ sung.
+- [evidence/README.md](evidence/README.md): nguồn log/bằng chứng; [kết quả chấm Part 6](evidence/part6-full-check.txt) đạt **PASS 12/12, 43/43 checks**.
+
+Public agent: https://day14-agent-8reb.onrender.com — health/readiness public; `/ask` cần key riêng, không lưu key trong repo. Part 7 dùng stack mock riêng trên localhost, không tạo tải trên service cloud.
+
+Các script trong `scripts/` điều phối công cụ gốc và chụp UI thật. Có thể chạy `python scripts/audit_submission.py` để kiểm tra file/bằng chứng sau khi cài dependencies. Cần tự đọc và giải thích kết quả; các giới hạn đo và bước làm với AI đã được khai báo trong báo cáo.
+
+---
+
 > Đưa agent lên cloud, đo xem nó nhanh và đúng tới đâu, rồi giám sát nó khi chạy thật.
 
 > **AICB-P1 · VinUniversity 2026**  

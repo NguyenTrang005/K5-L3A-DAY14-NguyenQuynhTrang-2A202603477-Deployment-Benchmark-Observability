@@ -319,12 +319,21 @@ Result: 12/12 tiêu chí đạt · 43/43 checks passed
 
 `Public URL ready` trong script chỉ xác nhận cấu hình deploy sẵn sàng. Public URL Render đã được người học kiểm chứng riêng ở Part 3 (health/readiness, thiếu key 401, key đúng 200); có `DEPLOYMENT.md`. Còn cần lưu ảnh triển khai vào repo để đủ hồ sơ nộp.
 
+## Part 7: Benchmark & Observability
+
+Báo cáo chính: [BENCHMARK_REPORT.md](BENCHMARK_REPORT.md), JSON ở `reports/`, CSV scaling ở `benchmark-results/`, ảnh UI thật ở `screenshots/`. `evidence/README.md` giải thích nguồn bằng chứng; `SUBMISSION_STATUS.md` ghi file còn cần bổ sung.
+
+Đã sửa hai chủ đề JWT/HPA trong KNOWLEDGE_BASE, giữ nguyên golden dataset. v2 sau sửa đạt 23/23 và không regression. Workflow quality gate được thêm trong `.github/workflows/quality-gate.yml`; cần bật required status check trên GitHub nếu muốn bắt buộc chặn merge. Không tuyên bố workflow đã chạy thành công trên GitHub.
+
+Lỗi Dockerfile mẫu Part 7 được sửa bằng `PYTHONUSERBASE=/home/agent/.local` để user non-root tìm được dependencies. Các phép đo scaling cuối dùng Locust `--no-deps`, xác nhận đúng 1 và 3 replica; không dùng kết quả pilot bị Compose đưa về mặc định 2 replica. Không sửa alert rules để làm alert dễ firing. Số liệu/ảnh và giới hạn thử nghiệm được trình bày trong báo cáo.
+
 ## AI log
 
-Part 3 bổ sung: ChatGPT/Codex hướng dẫn chuyển từ Railway sang Render, tạo Key Value, cấu hình web service và kiểm tra Swagger. Người học tự thực hiện deploy và gửi ảnh health/readiness/401/200; Codex đối chiếu ảnh, viết `DEPLOYMENT.md`, so sánh file cấu hình và mô tả Cloud Run từ source. Chưa thực hiện deploy GCP hay Railway; chưa xác nhận ảnh đã được lưu vào repo.
+Part 3 bổ sung: ChatGPT/Codex hướng dẫn chuyển từ Railway sang Render, tạo Key Value, cấu hình web service và kiểm tra Swagger. Người học tự thực hiện deploy và gửi ảnh health/readiness/401/200; Codex đối chiếu ảnh, viết `DEPLOYMENT.md`, so sánh file cấu hình và mô tả Cloud Run từ source. Ngày 26/11/2026 Codex kiểm tra và chụp lại public health/thiếu-key 401. Không deploy GCP/Railway; dashboard Render cần phiên đăng nhập của người học.
 
 | Phạm vi | Đã hỏi / hỗ trợ nhận được | Tự thực hiện và kiểm chứng |
 |---|---|---|
 | Part 1 | Nhờ ChatGPT/Codex giải thích yêu cầu, hướng dẫn chạy develop/production, phân tích lỗi địa chỉ `0.0.0.0` và lỗi thiếu `AGENT_API_KEY`; hỗ trợ đọc code và soạn câu trả lời Part 1. | Tự chạy server, gọi `/ask` trong Swagger, kiểm tra `/health` bằng trình duyệt và PowerShell; đổi env/port và gửi kết quả. Nội dung báo cáo được đối chiếu với code và các kết quả này. Cần tự đọc lại và giải thích các câu trả lời trước khi nộp. |
 | Part 2 và Git (đang làm) | Nhờ hướng dẫn build Docker, xử lý lỗi snapshot bằng builder riêng, sửa đường dẫn COPY mock LLM và kiểm tra trạng thái Git xóa/thêm trùng. | Đã tự chạy container, kiểm tra `/health`, chạy các lệnh build và gửi log. Codex sửa Dockerfile, thêm mock, khôi phục index và file gốc bị thiếu |
 | Part 4–6 | Nhờ Codex hoàn thiện các phần. Codex đọc code mẫu, viết helper budget tháng Redis, sửa handler signal Part 5, triển khai các TODO Part 6, viết script kiểm tra và soạn báo cáo từ kết quả thực tế. | Trong đợt này **Codex chạy kiểm thử**, không ghi thành người học tự chạy: TestClient Part 4; Redis concurrency; stack 3 instance và script gốc Part 5; HTTP/SIGTERM Linux; script chấm Part 6 nguyên gốc đầy đủ PASS 12/12. Người học cho phép gắn Docker socket cho lần chấm đầy đủ. Người học cần tự đọc, chạy lại và giải thích code/kết quả; chưa ghi nhận bước tự kiểm tra đó trong đợt này. |
+| Part 7 và đóng gói | Nhờ Codex hoàn thiện nốt, commit và push. Codex viết script điều phối chạy công cụ gốc, sửa KB JWT/HPA, thêm workflow quality gate, sửa PYTHONUSERBASE, kiểm tra số replica, thu JSON/CSV/trace/alert, chụp UI thật và tạo báo cáo từ file đo. | **Codex chạy các phép đo**, có log/bằng chứng và nêu cả SLO fail. Không sửa dataset/script chấm, không bịa số hoặc dựng ảnh. Người học cần tự đọc lại, giải thích kết quả, lưu ảnh dashboard Render từ phiên đăng nhập của mình và nộp link LMS. |
